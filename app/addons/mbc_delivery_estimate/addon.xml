@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<addon scheme="3.0">
+	<id>mbc_delivery_estimate</id>
+  <version>1.0.0</version>
+  <priority>1000</priority>
+  <position>0</position>
+  <status>active</status>
+  <has_icon>Y</has_icon>
+  <default_language>en</default_language>
+  <supplier>MADBIT Co.</supplier>
+  <supplier_link>https://madbit.co</supplier_link>
+
+	<!-- <name>Order Delivery Time</name> -->
+	<description>Automatically calculate delivery time for your shipping options.</description>
+
+  <compatibility>
+    <!-- Checking CS-Cart version. -->
+    <core_version>
+      <!-- The minimum version required. -->
+      <min>4.4.0</min>
+      <!-- The maximum version supported. -->
+      <max>4.6.2</max>
+    </core_version>
+    <!-- Checking edition: cs-cart/multivendor. -->
+    <core_edition>ULTIMATE</core_edition>
+    <!-- Checking PHP version compatibility. -->
+    <php_version>
+      <!-- The minimum PHP version required. -->
+      <min>5.6</min>
+      <!-- The maximum PHP version supported. -->
+      <max>7.2</max>
+    </php_version>
+    <!-- Dependencies. These add-ons must be installed before you can install the current add-on. Otherwise an error message will be displayed. -->
+    <!-- <dependencies>mbo_custom_product_indicator</dependencies> -->
+  </compatibility>
+
+  <authors>
+    <author>
+      <name>MADBIT CO.</name>
+      <email>contact@madbit.co</email>
+      <url>https://madbit.co</url>
+    </author>
+  </authors>
+
+  <auto_install>ULTIMATE</auto_install>
+
+  <settings>
+    <sections>
+      <section id="general">
+        <name>Settings</name>
+        <items>
+          <item id="uk_bank_holidays">
+            <name>Observe UK Bank Holidays</name>
+            <type>checkbox</type>
+            <default_value>Y</default_value>
+          </item>
+
+          <item id="skip_weekends">
+            <name>Skip delivery on weekends</name>
+            <type>checkbox</type>
+            <default_value>Y</default_value>
+          </item>
+
+          <item id="cutoff_time">
+            <name>Global cut-off time</name>
+            <type>input</type>
+            <default_value>14:00:00</default_value>
+          </item>
+        </items>
+      </section>
+    </sections>
+  </settings>
+
+  <language_variables>
+		<item id="before" lang="en">Before</item>
+		<item id="after" lang="en">After</item>
+		<item id="delivery_within" lang="en">Delivery within</item>
+		<item id="days" lang="en">days</item>
+		<item id="working_days" lang="en">working days</item>
+		<item id="delivery" lang="en">Delivery</item>
+		<item id="get_it_by" lang="en">Get it by</item>
+		<item id="estimated_delivery" lang="en">Estimated delivery</item>
+		<item id="calculate_estimate" lang="en">Calculate delivery estimate</item>
+		<item id="delivery_production" lang="en">Delivery / Production</item>
+	</language_variables>
+
+  <queries>
+    <item>DROP TABLE IF EXISTS ?:mbc_delivery_estimate;</item>
+    <item>
+      CREATE TABLE `?:mbc_delivery_estimate` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `shipping_id` int(11) NOT NULL DEFAULT '0',
+        `pre_cutoff` int(11) NOT NULL DEFAULT '1',
+        `post_cutoff` int(11) NOT NULL DEFAULT '2',
+        PRIMARY KEY (`id`),
+        UNIQUE KEY `shipping_id` (`shipping_id`)
+      ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+    </item>
+    <item for="uninstall">DROP TABLE IF EXISTS ?:mbc_delivery_estimate;</item>
+    <item for="install">ALTER TABLE ?:shippings ADD `estimate_delivery` CHAR(1) NOT NULL</item>
+    <item for="uninstall">ALTER TABLE ?:shippings DROP `estimate_delivery`</item>
+    <item type="file">database/defaults.sql</item>
+  </queries>
+</addon>

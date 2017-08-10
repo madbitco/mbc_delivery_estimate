@@ -1,0 +1,33 @@
+msgid ""
+msgstr "Project-Id-Version: tygh\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: English\n"
+"Language: en_US"
+
+msgctxt "Addons::name::mbc_delivery_estimate"
+msgid "Delivery Estimate"
+msgstr "Delivery Estimate"
+
+msgctxt "Addons::description::mbc_delivery_estimate"
+msgid "Automatically calculate delivery date for your shipping options."
+msgstr "Automatically calculate delivery date for your shipping options."
+
+msgctxt "Languages::mbc_order_within"
+msgid "Order within"
+msgstr "Order within"
+
+msgctxt "Languages::mbc_to_get_it_by"
+msgid "to get it by"
+msgstr "to get it by"
+
+msgctxt "Languages::mbc_via"
+msgid "via"
+msgstr "via"
+
+msgctxt "Languages::mbc_estimated_delivery"
+msgid "Estimated delivery"
+msgstr "Estimated delivery"
+
+msgctxt "Languages::mbc_delivery_by"
+msgid "delivery by"
+msgstr "delivery by"
