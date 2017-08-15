@@ -20,10 +20,6 @@ function fn_mbc_delivery_estimate_get_shipping_info (&$shipping_id, &$fields, &$
   return true;
 }
 
-// function fn_mbc_delivery_estimate_get_shipping_info_post (&$shipping_id, &$lang_code, &$shipping) {
-//   return true;
-// }
-
 function fn_mbc_delivery_estimate_shippings_get_shippings_list_conditions(&$group, &$shippings, &$fields, &$join, &$condition, &$order_by) {
   $fields[] = 'estimate_delivery';
 
@@ -39,8 +35,6 @@ function fn_mbc_delivery_estimate_shippings_get_shippings_list_conditions(&$grou
 }
 
 function fn_mbc_delivery_estimate_shippings_get_shippings_list_post(&$group, &$lang, &$area, &$shippings_info) {
-  // print_r("<pre>" . var_export($is_custom_order, true) . "</pre>"); die();
-
   foreach ($shippings_info as $key => &$shipping) {
     if (!empty($shipping['estimate_delivery']) && $shipping['estimate_delivery'] == 'Y') {
       $service_delivery_time = fn_mbc_delivery_estimate_calculate($shipping['shipping_id'], false);
@@ -102,19 +96,16 @@ function fn_mbc_delivery_estimate_calculate($shipping_id, $order_date = false)
 
 function fn_mbc_delivery_estimate_countdown()
 {
-  $settings = Registry::get('addons.mbc_delivery_estimate');
+  $settings = Registry::get('addons.mbc_order_delivery_time');
   $current_time = new DateTime(date('Y-m-d H:i:s', time()));
   $cutoff_time = new DateTime(date('Y-m-d H:i:s', strtotime($settings['cutoff_time'])));
   $countdown;
 
   if ($settings['skip_weekends'] == 'Y') {
-    $is_friday = date('w', strtotime($cutoff_time->format('Y-m-d'))) == 5;
     $is_saturday = date('w', strtotime($cutoff_time->format('Y-m-d'))) == 6;
     $is_sunday = date('w', strtotime($cutoff_time->format('Y-m-d'))) == 0;
 
-    if ($is_friday) {
-      $cutoff_time->modify('+3 day');
-    } elseif ($is_saturday) {
+    if ($is_saturday) {
       $cutoff_time->modify('+2 day');
     } elseif ($is_sunday) {
       $cutoff_time->modify('+1 day');
@@ -122,7 +113,7 @@ function fn_mbc_delivery_estimate_countdown()
   }
 
   if ((int)$current_time->format('U') >= (int)$cutoff_time->format('U')) {
-    $countdown = $cutoff_time->modify('+1 day')->diff($current_time, true);
+    $countdown = $cutoff_time->modify("+1 {$type_of_day}")->diff($current_time, true);
   } else {
     $countdown = $cutoff_time->diff($current_time, true);
   }
