@@ -18,7 +18,6 @@ class ShippingInfo {
   {
     $fields = array(
       "?:shippings.shipping_id",
-      "?:shippings.is_custom",
       "?:shipping_descriptions.shipping",
     );
 

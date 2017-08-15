@@ -17,8 +17,6 @@ if ($mode == 'details' && !empty($_REQUEST['order_id'])) {
     'formatted' => $estimate,
     'order_date' => $order_date,
     'timestamp' => $order_info['timestamp'],
-    'is_custom_order' => $is_custom_order,
-    'is_express' => $is_express,
   );
 
   Registry::get('view')->assign('delivery_estimate', $delivery_estimate);

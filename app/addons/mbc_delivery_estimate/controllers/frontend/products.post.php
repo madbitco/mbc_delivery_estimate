@@ -23,12 +23,6 @@ if ($mode == 'view') {
     return array(CONTROLLER_STATUS_NO_PAGE);
   } else {
     foreach($shippings as $key => $shipping) {
-      // discard shipping options that do not match default destination
-      if ($shipping['destination_id'] != fn_get_available_destination($location)) {
-        unset($shippings[$key]);
-        continue;
-      }
-
       $shipping_info = ShippingInfo::getShippingInfo($shipping['shipping_id']);
       $estimate = fn_mbc_delivery_estimate_calculate($shipping['shipping_id']);
 
@@ -48,5 +42,4 @@ if ($mode == 'view') {
   }
 
   Registry::get('view')->assign('shippings', $shippings_list);
-  Registry::get('view')->assign('is_custom', ($product_data['is_custom'] == 'Y' ? true : false));
 }
