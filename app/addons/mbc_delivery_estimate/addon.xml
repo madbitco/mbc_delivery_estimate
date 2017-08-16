@@ -30,8 +30,11 @@
       <!-- The maximum PHP version supported. -->
       <max>7.2</max>
     </php_version>
-    <!-- Dependencies. These add-ons must be installed before you can install the current add-on. Otherwise an error message will be displayed. -->
-    <!-- <dependencies>mbo_custom_product_indicator</dependencies> -->
+    <php_extensions>
+      <calendar>
+        <supported>Y</supported>
+      </calendar>
+    </php_extensions>
   </compatibility>
 
   <authors>
